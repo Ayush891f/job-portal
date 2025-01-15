@@ -8,6 +8,7 @@ import { Briefcase, DoorClosed, DoorOpen, MapPinIcon } from "lucide-react";
 import MDEditor from "@uiw/react-md-editor"
 import { Select, SelectItem, SelectTrigger, SelectValue, SelectContent } from "@radix-ui/react-select";
 import { updateHiringStatus } from "../api/apiJobs";
+import ApplyJobDrawer from "../components/apply-job";
 
 const JobPage = () => {
   const { isLoaded, user } = useUser();
@@ -86,6 +87,9 @@ const JobPage = () => {
     <MDEditor.Markdown source={job?.requirements} className="bg-transparent sm:text-lg"/>
 
     {/* render applications */}
+    {job?.recruiter_id !== user?.id && (
+      <ApplyJobDrawer job={job} user={user} fetchJob={fnJob} applied={job?.applications?.find((ap) => p.candidate_id === user.id)} />
+    )}
     </div>
   )
 }
